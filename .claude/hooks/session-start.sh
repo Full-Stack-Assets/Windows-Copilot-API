@@ -8,6 +8,10 @@ if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
   exit 0
 fi
 
+# Run in the background so the session starts without waiting on the install.
+# The remaining work below runs while the agent loop spins up.
+echo '{"async": true, "asyncTimeout": 300000}'
+
 cd "$CLAUDE_PROJECT_DIR"
 
 # Runtime deps: curl_cffi, playwright, fastapi, uvicorn (see requirements.txt).
